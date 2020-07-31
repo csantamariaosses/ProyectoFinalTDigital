@@ -56,12 +56,8 @@
 				id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<div class="sb-sidenav-menu-heading">Tí­tulo prueba</div>
-						<a class="nav-link" href="<c:out value='/admin' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Administración
-						</a>
+	
+				      <jsp:include page="../includes/menuUsuarios.jsp"></jsp:include>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
@@ -75,55 +71,66 @@
 		<!-- Cuerpo de la aplicación -->
 		<div id="layoutSidenav_content">
 			<main>
-				<div class="container-fluid">
-				<br>
-					 <h3><i class="fa fa-home"></i>  Bienvenido :::<c:out value="${nombre}"></c:out></h3>
+			   
+			   
+			   <div class="my-5 mx-5">
+			      <h3><i class="fa fa-key"></i> Cambio de Contraseña</h3> 
 
-					<div class="card mb-4">
-						<div class="card-header">
-							<i class="fas fa-table mr-1"></i> Ejemplo de tabla
-						</div>
-						<div class="card-body">
-							<div class="table-responsive">
-								<!-- Data Table -->
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Nombre</th>
-											<th>Correo</th>
-											<th>Contrasenia</th>
-											<th>Rol</th>
-										</tr>
-									</thead>
-									<tfoot>
-										<tr>
-											<th>Id</th>
-											<th>Nombre</th>
-											<th>Correo</th>
-											<th>Contrasenia</th>
-											<th>Rol</th>
-										</tr>
-									</tfoot>
-									<tbody>
-										<c:forEach var="usuario" items="${usuarioDto.usuarios}">
-											<tr>
-												<td>${usuario.id}</td>
-												<td>${usuario.nombre}</td>
-												<td>${usuario.correo}</td>
-												<td>${usuario.contrasenia.substring(0, 10)}***</td>
-												<td>${usuario.rol}</td>
-											</tr>
-										</c:forEach>
+			   </div>
 
-									</tbody>
-								</table>
-								<!-- Data Table -->
-							</div>
-						</div>
+               
+				<!--|== Inicio - Mensaje error ======================|-->
+				<div class="my-5 mx-5">
+				<c:if test="${error}">
+					<div class="alert alert-warning alert-dismissible fade show"
+						role="alert">
+						<strong>¡Error!</strong> ${msg}
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
+				</c:if>
+                </div>
+                
+                <div class="my-5 mx-5">
+				<c:if test="${info}">
+					<div class="alert alert-success alert-dismissible fade show"
+						role="alert">
+						<strong>¡Felicidades!</strong> ${msg}
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</c:if>
+                </div>
+
+				<div class="my-5 mx-5">
+					<form action="/usuario/cambioContrasenia" method="post">
+						<div class="form-group">
+							<input type="hidden" 
+							        id="id" 
+							        name="id"
+									value="<c:out value='${id}' />" />
+
+						</div>
+
+						<div class="form-group">
+							<input type="text" class="form-control" name="password" id="password"
+								aria-describedby="emailHelp" placeholder="Nueva Contraseña" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="password_" id="password_"
+								aria-describedby="emailHelp" placeholder="Reingrese Nueva Contraseña"
+								required>
+						</div>
+
+						<button type="submit" class="btn btn-primary">Enviar</button>
+					</form>
 				</div>
+			   
+				
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">

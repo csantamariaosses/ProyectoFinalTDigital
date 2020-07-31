@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import cl.csantam.model.dto.PacienteDto;
-import cl.csantam.model.dto.UsuarioDto;
 import cl.csantam.model.entity.Paciente;
-import cl.csantam.model.entity.Usuario;
 import cl.csantam.service.PacienteService;
-import cl.csantam.service.UsuarioService;
 
 @Controller
 @RequestMapping("pacientes")
@@ -36,6 +34,11 @@ public class PacientesController {
         Authentication auth = SecurityContextHolder.getContext()
                 .getAuthentication();
         String name = auth.getName();
+        
+        List<Paciente> pacientes = servicio.llenarPacientes().getPacientes();
+       // logger.info( pacientes.toString() );
+        
+        modelo.addAttribute("pacientes", pacientes);
         modelo.addAttribute("username", name);
         
 //        String nombre = servicio.buscarUsuarioPorCorreo(name);
@@ -44,19 +47,53 @@ public class PacientesController {
     }
 	
 	
-	@PostMapping
-    public String registrarPaciente( @ModelAttribute Paciente paciente, ModelMap modelo) {
-    	logger.info("Pass:" + paciente.getNombre());
-        PacienteDto pacienteDto = servicio.registrarPaciente( paciente );
-        if( pacienteDto.getPaciente()  == null)
-            return "admin";
+	    @PostMapping
+	    public String registraPacientes( @ModelAttribute Paciente paciente, ModelMap modelo) {
+	    	
+	        PacienteDto pacienteDto = servicio.registrarPaciente( paciente );
+	        if( pacienteDto.getPaciente() == null)
+	            return "admin";
 
-        //return "redirect:home"; 
-        List<Paciente> pacientes = servicio.llenarPacientes().getPacientes();
-    	
-    	modelo.addAttribute("paciente", paciente );
-    	modelo.addAttribute("pacientes", pacientes);
-        return "pacientes/pacientesActualizar";
-    }
+	        //return "redirect:home";
+	        List<Paciente> pacientes = servicio.llenarPacientes().getPacientes();
+	    	
+	    	modelo.addAttribute("paciente", paciente );
+	    	modelo.addAttribute("pacientes", pacientes );
+	        return "pacientes/pacientesActualizar";
+	  }
+	    
+	    @GetMapping("/actualizar")
+	    public String actualizar(
+	        ModelMap modelo,
+	        @RequestParam(name = "id") Integer  id
+	    ) {
+	    	Paciente  paciente = servicio.buscarPacientePorId(id).getPaciente();
+	    	
+	    	logger.info("Paciente:" + paciente.getNombre());
+	    	List<Paciente> pacientes = servicio.llenarPacientes().getPacientes();
+	    	
+	    	modelo.addAttribute("paciente", paciente );
+	    	modelo.addAttribute("pacientes", pacientes);
+	        //modelo.put("usuarioVo", servicio..obtenerPorId(id));
+	        //modelo.put("usuarioDto", usuarioDto);
+	        return "pacientes/pacientesActualizar";
+	    }
+	    
+	    
+	    @PostMapping("/actualizar")
+	    public String pacienteActualizar( @ModelAttribute Paciente  paciente, ModelMap modelo) {
+	     	logger.info("ACTUALIZAR::" + paciente.getNombre() + " id "+ paciente.getId());
+	     	
+	        PacienteDto pacienteDto = servicio.actualizarPaciente( paciente );
+	        if( pacienteDto.getPaciente() == null)
+	        	return "admin/usuarios";
+
+	        //return "redirect:home";
+	        List<Paciente> pacientes = servicio.llenarPacientes().getPacientes();
+	    	
+	    	modelo.addAttribute("paciente", paciente );
+	    	modelo.addAttribute("pacientes", pacientes );
+	        return "pacientes/pacientesActualizar";
+	    }
 
 }

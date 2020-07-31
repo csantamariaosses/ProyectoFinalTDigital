@@ -55,40 +55,8 @@
 			<nav class="sb-sidenav accordion sb-sidenav-dark"
 				id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
-					<div class="nav">
-					
-					    
-						 <jsp:include page="../includes/menuUsuarios.jsp"></jsp:include>
-						 
-						 <!--  
-						 
-						 <div class="sb-sidenav-menu-heading">Menu</div>
-						
-						<a class="nav-link" href="<c:out value='/usuario' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Home
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/pacientes' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Pacientes
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/procedimientos' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Procedimientos
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/tratamientos' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Tratamientos
-						</a>
-						  -->
-						
+					<div class="nav">					    
+						 <jsp:include page="../includes/menuUsuarios.jsp"></jsp:include>					
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
@@ -104,7 +72,7 @@
 			<main>
 			   
 			   <div class="container-fluid">
-				<h3 class="mt-4">Procedimientos</h3>
+				<h3 class="mt-4"><i class="fa fa-clipboard"></i>  Procedimientos - Actualizar</h3>
 				<br>
 				 
 					 <div class="card mb-4">

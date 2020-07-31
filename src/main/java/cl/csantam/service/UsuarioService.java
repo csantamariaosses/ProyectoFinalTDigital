@@ -51,9 +51,19 @@ public class UsuarioService {
     	return nombre; 
     }
     
+       
+    
     public UsuarioDto  buscarUsuarioPorId(Integer  id ) {
     	UsuarioDto usuarioDto = new UsuarioDto(   dao.findById(id).get() , dao.findAll() );
     	return usuarioDto; 
+    }
+    
+    
+    public UsuarioDto buscarUsuarioDtoPorCorreo( String correo ) {
+    	 UsuarioDto usuarioDto = new UsuarioDto();
+    	 Usuario usuarioEnBase = dao.findByCorreo( correo ).orElse(null);
+    	 usuarioDto.setUsuario(usuarioEnBase);
+    	return usuarioDto;
     }
     
     
@@ -66,15 +76,23 @@ public class UsuarioService {
          if(usuarioEnBase != null) {
         	 String pass_old = usuarioEnBase.getContrasenia();
         	 String pass_new = usuario.getContrasenia();
-        	 if( ! pass_old.equals( pass_new ) ) {
-        		 usuario.setContrasenia( EncoderUtils.passwordEncoder().encode(usuario.getContrasenia()));
+        	 logger.info("PSS_BASE:" + pass_old);
+        	 logger.info("PSS_NUEVA:" + pass_new);
+        	 if(  pass_old.equals( pass_new ) ) {      		 
+        		 usuario.setContrasenia(  pass_old );
+        	 } else {
+        		 String pwd = EncoderUtils.passwordEncoder().encode( pass_new );
+        		 String pwd2 = EncoderUtils.passwordEncoder().encode( pass_new );
+        		 
+        		 logger.info("PSS_NUEVA_encrip:" + pwd );
+        		 logger.info("PSS_NUEVA_encrip:" + pwd2 );
+        		 usuario.setContrasenia( pwd );
         	 }
         	 usuarioDto.setUsuario(dao.save(usuario));
              logger.warn("El usuario actualizado");
          }else {
         	 logger.warn("ERROR::: Usuario noo encontrado ");
-         }
-         usuarioDto.setUsuario(usuarioEnBase);
+         } 
          return usuarioDto;
     }
 	

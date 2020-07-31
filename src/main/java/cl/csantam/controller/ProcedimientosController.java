@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cl.csantam.model.dto.ProcedimientoDto;
-import cl.csantam.model.dto.UsuarioDto;
 import cl.csantam.model.entity.Procedimiento;
-import cl.csantam.model.entity.Usuario;
 import cl.csantam.service.ProcedimientoService;
-import cl.csantam.service.UsuarioService;
 
 @Controller
 @RequestMapping("procedimientos")

@@ -60,37 +60,7 @@
 				
 				      <jsp:include page="../includes/menuUsuarios.jsp"></jsp:include>
 				      
-				      <!--  
-				      
-				      <div class="sb-sidenav-menu-heading">Menu</div>					
-						<a class="nav-link" href="<c:out value='/usuario' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Home
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/pacientes' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Pacientes
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/procedimientos' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Procedimientos
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/tratamientos' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Tratamientos
-						</a>
-				      
-				       -->
-						
-				
-				
+				   
 
 					</div>
 				</div>
@@ -106,7 +76,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 			   <div class="my-5 mx-5">
-			      <h3>Bienvenido ::<c:out value="${nombre}"></c:out></h3>
+			      <h3><i class="fa fa-home"></i> Bienvenido ::<c:out value="${nombre}"></c:out></h3>
 			   </div>
 				
 			</main>

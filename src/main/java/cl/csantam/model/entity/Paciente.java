@@ -27,7 +27,7 @@ public class Paciente {
 	private String movil;
 	private String correo;
 	private String fechaNacimiento;
-	private String sexo;
-	private String prevision;
+	private Sexo  sexo;
+	private Prevision prevision;
 
 }

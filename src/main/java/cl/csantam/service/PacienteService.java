@@ -65,5 +65,10 @@ public class PacienteService {
 	    	return pacienteDto; 
 	    }
 	    
+	    public PacienteDto buscarPorRut( String rut ) {
+	    	PacienteDto pacienteDto = new PacienteDto(   dao.findByRut( rut ).get() , dao.findAll() );
+	    	return pacienteDto; 
+	    }
+	    
 	    
 }

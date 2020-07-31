@@ -68,32 +68,8 @@
 					<div class="nav">
 					
 					    
+						 <jsp:include page="../includes/menuUsuarios.jsp"></jsp:include>
 						
-						<div class="sb-sidenav-menu-heading">Menu</div>
-						
-						<a class="nav-link" href="<c:out value='/usuario' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Home
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/pacientes' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Pacientes
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/procedimientos' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Procedimientos
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/tratamientos' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Tratamientos
-						</a>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
@@ -109,7 +85,7 @@
 			<main>
 			   
 			   <div class="container-fluid">
-				<h3 class="mt-4">Pacientes</h3>
+				<h3 class="mt-4"> <i class="fa fa-user"></i>  Pacientes - Actualizar</h3>
 				<br>
 				 
 					 <div class="card mb-4">
@@ -119,34 +95,48 @@
 						<div class="card-body datosUsuario">
 							<div class="table-responsive">
 								<!-- Formulario Paciente -->
-								<form action="/pacientes" method="post">
+								<form action="/pacientes/actualizar" method="post">
+								
+								
+								<div class="form-group">
+										<input type="hidden" id="id" name="id"
+											value="<c:out value='${paciente.getId() }' />" />
+
+									</div>
+									
 								<div class="form-group">
 								    <label for="rut">Rut</label>
-								    <input type="text" class="form-control" name="rut" id="rut" aria-describedby="emailHelp" placeholder="Rut" required>
-							
+								    <input type="text" class="form-control" name="rut" id="rut" aria-describedby="emailHelp" placeholder="Rut" required value="<c:out value='${paciente.getRut() }' />">
+							 
 								  </div>
 								  <div class="form-group">
 								    <label for="nombre">Nombre</label>
-								    <input type="text" class="form-control"  name="nombre"  id="nombre" aria-describedby="emailHelp" placeholder="Nombre" required>
+								    <input type="text" class="form-control"  name="nombre"  id="nombre" aria-describedby="emailHelp" placeholder="Nombre" required  value="<c:out value='${paciente.getNombre() }' />">
 								  </div>
 								  <div class="form-group">
 								    <label for="direccion">Direccion</label>
-								    <input type="text" class="form-control"  name="direccion"  id="direccion" aria-describedby="emailHelp" placeholder="Direccion" required>
+								    <input type="text" class="form-control"  name="direccion"  id="direccion" aria-describedby="emailHelp" placeholder="Direccion" required value="<c:out value='${paciente.getDireccion() }' />">
 								  </div>
 								  <div class="form-group">
 								    <label for="direccion">Ciudad</label>
-								    <input type="text" class="form-control"  name="ciudad"  id="ciudad" aria-describedby="emailHelp" placeholder="Ciudad" required>
+								    <input type="text" class="form-control"  name="ciudad"  id="ciudad" aria-describedby="emailHelp" placeholder="Ciudad" required value="<c:out value='${paciente.getCiudad() }' />">
 								  </div>
 								  <div class="form-group">
 								    <label for="direccion">Movil</label>
-								    <input type="text" class="form-control"  name="movil"  id="movil" aria-describedby="emailHelp" placeholder="Movil" required>
+								    <input type="text" class="form-control"  name="movil"  id="movil" aria-describedby="emailHelp" placeholder="Movil" required value="<c:out value='${paciente.getMovil() }' />">
 								  </div>
 								  
 								  <div class="form-group">
 								    <label for="direccion">Correo</label>
-								    <input type="email" class="form-control"  name="correo"  id="correo" aria-describedby="emailHelp" placeholder="Correo" required>
+								    <input type="email" class="form-control"  name="correo"  id="correo" aria-describedby="emailHelp" placeholder="Correo" required value="<c:out value='${paciente.getCorreo() }' />">
 								  </div>
 
+									<div class="form-group">
+										<label for="fechaNacimienyo">Fecha Nacimiento</label> <input
+											type="date" class="form-control" name="fechaNacimiento"
+											id="fechaNacimiento" aria-describedby="emailHelp"
+											placeholder="Dia/Mes/Año" required value="<c:out value='${paciente.getFechaNacimiento() }' />">
+									</div>
 									<div class="form-group">
 										<label for="sexo">Sexo</label><br> <select name="sexo"
 											id="sexo">
@@ -181,7 +171,7 @@
 									</div>
 
 
-									<button type="submit" class="btn btn-primary">Agregar</button>
+									<button type="submit" class="btn btn-primary">Guardar</button>
 								</form>
 								
 							</div>
@@ -217,15 +207,15 @@
 										</tr>
 									</tfoot>
 									<tbody>
-										<c:forEach var="usuario" items="${usuarios}">
+										<c:forEach var="usuario" items="${pacientes}">
 											<tr>
 												<td>${usuario.id}</td>
 												<td>${usuario.rut}</td>
-												<td>${usuario.conombrerreo}</td>
+												<td>${usuario.nombre}</td>
 												<td>${usuario.correo}</td>
 
 												<td>
-												<a href='<c:out value="/admin/actualizar?id=${usuario.id}" />'>Actualizar</a>
+												<a href='<c:out value="/pacientes/actualizar?id=${usuario.id}" />'>Actualizar</a>
 												<a href="#">Eliminar</a> 
 											</tr>
 										</c:forEach>

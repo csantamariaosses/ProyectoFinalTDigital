@@ -124,4 +124,9 @@ public class AdminController {
     	modelo.addAttribute("usuarios", usuarios);
         return "admin/usuariosActualizar";
     }
+    
+    @GetMapping("/cambioContrasenia")
+    public String usuarioCambioPasswordInicio() {
+    	return "usuario/cambioContrasenia";
+    }
 }

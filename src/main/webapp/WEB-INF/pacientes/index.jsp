@@ -68,36 +68,7 @@
 					<div class="nav">
 					
 					    <jsp:include page="../includes/menuUsuarios.jsp"></jsp:include>
-					    
-					    <!--  
-					    
-					    <div class="sb-sidenav-menu-heading">Menu</div>
-						
-						<a class="nav-link" href="<c:out value='/usuario' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Home
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/pacientes' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Pacientes
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/procedimientos' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Procedimientos
-						</a> 
-						
-						<a class="nav-link" href="<c:out value='/tratamientos' />">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-child"></i>
-							</div> Tratamientos
-						</a>
-					     -->
-						
+					 				
 						
 					</div>
 				</div>
@@ -114,7 +85,7 @@
 			<main>
 			   
 			   <div class="container-fluid">
-				<h3 class="mt-4">Pacientes</h3>
+				<h3 class="mt-4"><i class="fa fa-user"></i>  Pacientes</h3>
 				<br>
 				 
 					 <div class="card mb-4">
@@ -151,11 +122,16 @@
 								    <label for="direccion">Correo</label>
 								    <input type="email" class="form-control"  name="correo"  id="correo" aria-describedby="emailHelp" placeholder="Correo" required>
 								  </div>
+								  
+								  <div class="form-group">
+								    <label for="fechaNacimienyo">Fecha Nacimiento</label>
+								    <input type="date" class="form-control"  name="fechaNacimiento"  id="fechaNacimiento" aria-describedby="emailHelp" placeholder="Dia/Mes/Año" required>
+								  </div>
 
 									<div class="form-group">
-										<label for="sexo">Sexo</label><br> <select name="sexo"
-											id="sexo">
-											<option value="">Seleccioe...</option>
+										<label for="sexo">Sexo</label><br> 
+										  <select name="sexo" id="sexo">
+											<option value="">Seleccione...</option>
 											<c:forEach var="sexo" items="${Sexo.values()}">
 												<c:if test="${sexo == paciente.getSexo()}">
 													<option value="${sexo}" selected>${sexo}</option>
@@ -171,7 +147,7 @@
 									<div class="form-group">
 										<label for="prevision">Prevision</label> <br>
 										<select name="prevision" id="prevision">
-								    
+								            <option value="">Seleccione...</option>
 								            <c:forEach var="prevision" items="${Prevision.values()}"> 
 								            <c:if test = "${prevision == paciente.getPrevision()}">
 								            <option value="${prevision}" selected>${prevision}</option>
@@ -222,15 +198,15 @@
 										</tr>
 									</tfoot>
 									<tbody>
-										<c:forEach var="usuario" items="${usuarios}">
+										<c:forEach var="usuario" items="${pacientes}">
 											<tr>
 												<td>${usuario.id}</td>
 												<td>${usuario.rut}</td>
-												<td>${usuario.conombrerreo}</td>
+												<td>${usuario.nombre}</td>
 												<td>${usuario.correo}</td>
 
 												<td>
-												<a href='<c:out value="/admin/actualizar?id=${usuario.id}" />'>Actualizar</a>
+												<a href='<c:out value="/pacientes/actualizar?id=${usuario.id}" />'>Actualizar</a>
 												<a href="#">Eliminar</a> 
 											</tr>
 										</c:forEach>
