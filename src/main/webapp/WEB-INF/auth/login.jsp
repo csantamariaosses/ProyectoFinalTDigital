@@ -21,7 +21,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
 	crossorigin="anonymous"></script>
 </head>
-<body class="bg-primary"  background="/img/fondoPantallaProyecto.jpg">
+<body class="bg-primary" style="background-image: url('imag/fecundacion-in-vitro-picsi-header.jpg');">
 	<div id="layoutAuthentication">
 		<div id="layoutAuthentication_content">
 			<main>

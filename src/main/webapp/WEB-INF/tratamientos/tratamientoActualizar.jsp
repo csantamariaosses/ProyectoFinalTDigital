@@ -50,7 +50,7 @@
 			<main>
 			   
 			   <div class="container-fluid">
-				<h3 class="mt-4"><i class="fa fa-file"></i> Tratamientos</h3>
+				<h3 class="mt-4"><i class="fa fa-file"></i> Tratamientos - Actualizar</h3>
 				<br>
 				 
 					 <div class="card mb-4">

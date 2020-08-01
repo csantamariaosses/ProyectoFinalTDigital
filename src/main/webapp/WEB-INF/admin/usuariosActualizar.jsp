@@ -8,28 +8,7 @@
 <body class="sb-nav-fixed">
 
 	<!-- Menú superior -->
-	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="index.html">Start Bootstrap</a>
-		<button class="btn btn-link btn-sm order-1 order-lg-0"
-			id="sidebarToggle" href="#">
-			<i class="fas fa-bars"></i>
-		</button>
-
-
-		<ul class="navbar-nav ml-auto mr-0 mr-md-2">
-			<!-- Menú usuario -->
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" id="userDropdown" href="#"
-				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-				<div class="dropdown-menu dropdown-menu-right"
-					aria-labelledby="userDropdown">
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="/logout">Logout</a>
-				</div></li>
-			<!-- Menú usuario -->
-		</ul>
-	</nav>
+	<jsp:include page="../includes/menuSuperior.jsp"></jsp:include>
 	<!-- Menú superior -->
 	<div id="layoutSidenav">
 
@@ -39,17 +18,7 @@
 				id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<div class="sb-sidenav-menu-heading">Tí­tulo prueba</div>
-						<a class="nav-link" href="<c:out value='/admin' />">
-							<div class="sb-nav-link-icon">
-								<i class="far fa-thumbs-up"></i>
-							</div> Home
-						</a>
-						<a class="nav-link" href="<c:out value='/admin/usuarios' />">
-							<div class="sb-nav-link-icon">
-								<i class="far fa-thumbs-up"></i>
-							</div> Usuarios
-						</a>
+						<jsp:include page="../includes/menuAdmin.jsp"></jsp:include>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">

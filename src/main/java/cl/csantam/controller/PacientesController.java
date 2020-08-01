@@ -37,7 +37,6 @@ public class PacientesController {
         
         List<Paciente> pacientes = servicio.llenarPacientes().getPacientes();
        // logger.info( pacientes.toString() );
-        
         modelo.addAttribute("pacientes", pacientes);
         modelo.addAttribute("username", name);
         
@@ -69,6 +68,7 @@ public class PacientesController {
 	    ) {
 	    	Paciente  paciente = servicio.buscarPacientePorId(id).getPaciente();
 	    	
+	    	logger.info("FechaNac:" + paciente.getFechaNacimiento());
 	    	logger.info("Paciente:" + paciente.getNombre());
 	    	List<Paciente> pacientes = servicio.llenarPacientes().getPacientes();
 	    	

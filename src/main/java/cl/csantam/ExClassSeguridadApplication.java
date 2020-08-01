@@ -76,7 +76,7 @@ class AppStartupRunner implements ApplicationRunner {
         paciente.setCorreo("correo@mail.com");
         paciente.setCiudad("Santiago");
         paciente.setDireccion("Costanera 530");
-        paciente.setFechaNacimiento("20-09-1990");
+        paciente.setFechaNacimiento("1970-06-01");
         paciente.setMovil("999888999");
         paciente.setSexo(Sexo.MASCULINO);
         paciente.setPrevision( Prevision.FONASA);
@@ -88,7 +88,7 @@ class AppStartupRunner implements ApplicationRunner {
         paciente.setCorreo("otro@mail.com");
         paciente.setCiudad("Santiago");
         paciente.setDireccion("Costanera 530");
-        paciente.setFechaNacimiento("20-09-1990");
+        paciente.setFechaNacimiento("1990-12-10");
         paciente.setMovil("999888999");
         paciente.setSexo(Sexo.FEMENINO);
         paciente.setPrevision( Prevision.ISAPRE);
