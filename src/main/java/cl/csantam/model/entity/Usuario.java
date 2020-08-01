@@ -1,9 +1,12 @@
 package cl.csantam.model.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,10 +28,8 @@ public class Usuario {
     @Setter @Getter private String contrasenia;
     @Setter @Getter private Rol rol;
     
-    
-//    public void setContrasenia(String contrasenia) {
-//        this.contrasenia = EncoderUtils.passwordEncoder().encode(contrasenia);
-//    }
-    
+    @OneToMany( mappedBy="usuario")
+    private List<Tratamiento> tratamiento;
+
     
 }

@@ -1,9 +1,12 @@
 package cl.csantam.model.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,5 +32,8 @@ public class Paciente {
 	private String fechaNacimiento;
 	private Sexo  sexo;
 	private Prevision prevision;
+	
+	@OneToMany( mappedBy="paciente")
+    private List<Tratamiento> tratamiento;
 
 }
