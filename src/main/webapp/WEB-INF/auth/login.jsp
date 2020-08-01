@@ -20,17 +20,25 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
 	crossorigin="anonymous"></script>
+	<style>
+	.tituloPpal {
+	    color:green;
+	}
+	
+	</style>
 </head>
-<body class="bg-primary" style="background-image: url('imag/fecundacion-in-vitro-picsi-header.jpg');">
+<body class="bg-primary" style="background-image: url('img/fecundacion-in-vitro-picsi-header.jpg');">
 	<div id="layoutAuthentication">
 		<div id="layoutAuthentication_content">
 			<main>
 				<div class="container">
 					<div class="row justify-content-center">
+					 
 						<div class="col-lg-5">
 							<div class="card shadow-lg border-0 rounded-lg mt-5">
 								<!--|== Inicio - tÃ­tulo ==========================|-->
 								<div class="card-header">
+								   <h2 class="text-center font-weight-bold my-4 tituloPpal">Unidad de Medicina Reproductiva</h2>
 									<h3 class="text-center font-weight-light my-4">Ingreso al
 										sistema</h3>
 								</div>
@@ -57,14 +65,14 @@
 											<label class="small mb-1" for="correo">Correo</label>
 											<input id="correo" name="correo" class="form-control py-4"
 												id="inputEmailAddress" type="email"
-												placeholder="Ingrese su correo" />
+												placeholder="Ingrese su correo"  required/>
 										</div>
 
 										<div class="form-group">
 											<label class="small mb-1" for="inputPassword">Contraseña</label>
 											<input id="contrasenia" name="contrasenia"
 												class="form-control py-4" type="password"
-												placeholder="Ingrese su contraseña" />
+												placeholder="Ingrese su contraseña" required/>
 										</div>
 
 										<div

@@ -67,6 +67,7 @@ body {
   color: #212529;
   text-align: left;
   background-color: #fff;
+  background-image:url('img/fondoPantallaProyecto.jpg');
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -6101,7 +6102,7 @@ a.close.disabled {
 .bg-primary {
   background-color: #003333 !important;  
  /*
-  background:url('img/fondoPantallaProyecto.jpg'); 
+  background:url('img/fondoPantallaProyecto.jpg') !important; 
   background-position:center;
   background-size:cover;
   */

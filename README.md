@@ -1,5 +1,4 @@
-# Ejemplo en clases de Spring Security.
+# Proyecto Final T.Digital
 
-👨🏻‍🏫 El siguiente ejemplo, contiene la historia de una aplicación que utiliza spring security con datos en memoria volátil.
-
-En la siguiente clase será actualizado a memoria persistente. 👨🏻‍💻
+Este consiste en un MBP de un sistema de Unidad de Medicina Reproductiva. 
+Maneja control de acceso, mantenedor de entidades e ingreso de tratamientos medicos.
