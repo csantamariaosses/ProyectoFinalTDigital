@@ -12,7 +12,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Home</title>
+<title>UMR</title>
 <link href="/css/styles.css" rel="stylesheet" />
 <link
 	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
@@ -58,6 +58,35 @@
 						<div class="card-header">
 							<i class="far fa-address-card mr-1"></i> Datos Procedimientos::
 						</div>
+
+						<!--|== Inicio - Mensaje error ======================|-->
+						<div class="my-5 mx-5">
+							<c:if test="${error}">
+								<div class="alert alert-warning alert-dismissible fade show"
+									role="alert">
+									<strong>¡Error!</strong> ${msg}
+									<button type="button" class="close" data-dismiss="alert"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							</c:if>
+						</div>
+
+						<div class="my-5 mx-5">
+							<c:if test="${info}">
+								<div class="alert alert-success alert-dismissible fade show"
+									role="alert">
+									<strong>¡Felicidades!</strong> ${msg}
+									<button type="button" class="close" data-dismiss="alert"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							</c:if>
+						</div>
+
+
 						<div class="card-body datosUsuario">
 							<div class="table-responsive">
 								<!-- Formulario Paciente -->
@@ -133,9 +162,39 @@
 												<td>$ ${usuario.precio}</td>
 
 												<td>
-												<a href='<c:out value="/procedimientos/actualizar?id=${usuario.id}" />'>Actualizar</a>
-												<a href="#">Eliminar</a> 
+												 <a href='<c:out value="/procedimientos/actualizar?id=${usuario.id}" />'><i class="fa fa-edit" aria-hidden="true"></i></a>
+												<a href="/procedimientos/eliminar?id=${usuario.id}" data-toggle="modal" data-target="#myModal-${usuario.id}"><i class="fa fa-trash" aria-hidden="true"></i></a> 
 											</tr>
+											
+											
+											<div id="myModal-${usuario.id}" class="modal fade"
+												role="dialog">
+												<div class="modal-dialog">
+
+													<!-- Modal content-->
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+															
+														</div>
+														<div class="modal-body">
+														<h4 class="modal-title">Advertencia de Eliminacion</h4>
+															<p>Esta seguro de querer eliminar el
+																procedimiento: ${usuario.id}?</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-danger"
+																hint="eliminar"
+																onClick="eliminar(${usuario.id});" data-dismiss="modal">Eliminar</button>
+															<button type="button" class="btn btn-default"
+																data-dismiss="modal">Close</button>
+														</div>
+													</div>
+
+												</div>
+											</div>
+											
+											
 										</c:forEach>
 
 									</tbody>
@@ -156,7 +215,7 @@
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
+	<script src="/js/scripts.js"></script>
 
 	<!-- dataTable a espaÃ±ol -->
 	<script>
@@ -176,8 +235,12 @@
 	<script
 		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
 		crossorigin="anonymous"></script>
-	<script src="assets/demo/datatables-demo.js"></script>
-
+	<script src="/assets/demo/datatables-demo.js"></script>
+<script>
+function eliminar( id ) {
+	window.location.href = "/procedimientos/eliminar?id="+id;
+}
+</script>
 </body>
 
 </html>

@@ -46,6 +46,7 @@ public class AuthServiceImpl  implements UserDetailsService {
            
         }else {
             logger.warn("el usuario no pudo ser encontrado, username :" + username);
+            
         }
         
         return usuarioSistema;

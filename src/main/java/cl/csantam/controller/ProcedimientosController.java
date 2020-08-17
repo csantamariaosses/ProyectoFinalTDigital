@@ -24,6 +24,10 @@ import cl.csantam.service.ProcedimientoService;
 public class ProcedimientosController {
 	private static final Logger logger = LoggerFactory.getLogger(ProcedimientosController.class);
 	
+	boolean info  = false;
+	boolean error = false;
+	String    msg = "";
+	
 	@Autowired
     private ProcedimientoService servicio;
 	
@@ -72,8 +76,7 @@ public class ProcedimientosController {
 	    	
 	    	modelo.addAttribute("procedimiento", procedimiento);
 	    	modelo.addAttribute("procedimientos", procedimientos);
-	        //modelo.put("usuarioVo", servicio..obtenerPorId(id));
-	        //modelo.put("usuarioDto", usuarioDto);
+
 	        return "procedimientos/procedimientosActualizar";
 	    }
 	    
@@ -83,15 +86,57 @@ public class ProcedimientosController {
 	     	logger.info("ACTUALIZAR::" + procedimiento.getNombre() + " id "+ procedimiento.getId());
 	     	
 	        ProcedimientoDto procedimientoDto = servicio.actualizarProcedimiento( procedimiento );
-	        if( procedimientoDto.getProcedimiento() == null)
-	        	return "admin/usuarios";
+	        if( procedimientoDto.getProcedimiento() == null) {
+	        	error = true;
+	        	msg = "Ocurrio un problema al intentar actualizar...";
+	        } else {
+	        	info = true;
+	        	msg = "Procedimiento actualizado en forma correcta ...!";
+	        }
 
 	        //return "redirect:home";
 	        List<Procedimiento> procedimientos = servicio.llenarProcedimientos().getProcedimientos();
 	    	
+	        modelo.put("info", info);
+	        modelo.put("error", error);
+	        modelo.put("msg", msg);
+	        
 	    	modelo.addAttribute("procedimiento", procedimiento);
 	    	modelo.addAttribute("procedimientos", procedimientos );
 	        return "procedimientos/procedimientosActualizar";
 	    }
 
+	    
+	    
+	    @GetMapping("/eliminar")
+	    public String procedimientoEliminar(
+	        ModelMap modelo,
+	        @RequestParam(name = "id") Integer id
+	    ) {
+
+	    	logger.info("Controller Eliminar:" + id);
+	    	boolean error = false;
+	    	boolean info = false;
+	    	String  msg = "";
+	    	Procedimiento procedimiento = servicio.buscarProcedimientoPorId(id).getProcedimiento();
+	    	
+	    	if( servicio.eliminarProcedimiento( procedimiento ) )  {
+	    		info = true;
+	    		msg = "Procedimiento eliminado en forma exitosa..!!";
+	    	} else {
+	    		error = false;
+	    		msg = "Ocurrio un problema al intentar eliminar";
+	    	}
+	    	
+	    	List<Procedimiento> procedimientos = servicio.llenarProcedimientos().getProcedimientos();
+	    	
+	    	modelo.addAttribute("info", info);
+	    	modelo.addAttribute("error", error);
+	    	modelo.addAttribute("msg", msg);
+	    	modelo.addAttribute("procedimiento", procedimiento );
+	    	modelo.addAttribute("procedimientos", procedimientos);
+	        //modelo.put("usuarioVo", servicio..obtenerPorId(id));
+	        //modelo.put("usuarioDto", usuarioDto);
+	        return "procedimientos/procedimientosActualizar";
+	    }
 }

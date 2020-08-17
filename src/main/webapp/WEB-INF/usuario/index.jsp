@@ -12,7 +12,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Home</title>
+<title>UMR</title>
 <link href="/css/styles.css" rel="stylesheet" />
 <link
 	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
@@ -55,8 +55,21 @@
 		<div id="layoutSidenav_content">
 			<main>
 			   <div class="my-5 mx-5">
-			      <h3><i class="fa fa-home"></i> Bienvenido ::<c:out value="${nombre}"></c:out></h3>
+			      <h3><i class="fa fa-home"></i> Bienvenido :: <c:out value="${nombre}"></c:out></h3>
 			   </div>
+			   
+			   <div class="my-5 mx-5">
+						<c:if test="${info}">
+							<div class="alert alert-success alert-dismissible fade show"
+								role="alert">
+								<strong>¡Felicidades!</strong> ${msg}
+								<button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						</c:if>
+					</div>
 				
 			</main>
 			<footer class="py-4 bg-light mt-auto">

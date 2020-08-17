@@ -66,6 +66,13 @@ public class UsuarioService {
     	return usuarioDto;
     }
     
+    public UsuarioDto buscarUsuarioDtoPorRut( String rut ) {
+   	 UsuarioDto usuarioDto = new UsuarioDto();
+   	 Usuario usuarioEnBase = dao.findByRut(rut).orElse(null);
+   	 usuarioDto.setUsuario(usuarioEnBase);
+   	return usuarioDto;
+   }
+    
     
     public UsuarioDto actualizarUsuario( Usuario usuario ) {
     	 UsuarioDto usuarioDto = new UsuarioDto();
@@ -94,6 +101,29 @@ public class UsuarioService {
         	 logger.warn("ERROR::: Usuario noo encontrado ");
          } 
          return usuarioDto;
+    }
+    
+    
+    public boolean eliminarUsuario( Usuario usuario ) {
+    	boolean status = false;
+        
+    	logger.info("POR ELIMINAR:" + usuario.getId());
+   	    Usuario usuarioEnBase = dao.findById( usuario.getId()).orElse( null );
+        //Usuario usuarioEnBase = dao.findByCorreo(usuario.getCorreo()).orElse(null);
+        
+        if(usuarioEnBase != null) {
+        	try {
+        		dao.delete(usuario);
+        		status = true;
+            	logger.info("ELIMINADO:" );
+        	} catch( Exception ex ) {
+        		logger.info("Error al intentar eliminar :"+ usuario.getId() );
+        		status = false;
+        	}
+        	
+        }
+        	
+        return status;
     }
 	
     

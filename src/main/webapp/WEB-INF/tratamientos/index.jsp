@@ -12,7 +12,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Home</title>
+<title>UMR</title>
 <link href="/css/styles.css" rel="stylesheet" />
 <link
 	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
@@ -60,13 +60,17 @@
 						<div class="card-body datosUsuario">
 							<div class="table-responsive">
 								<!-- Formulario Paciente -->
-								<form action="/admin" method="post">
-								<div class="form-group">
-								    <input type="text" class="form-control" name="rut" id="rut" aria-describedby="emailHelp" placeholder="Rut paciente" required>						
+								<form action="/tratamientos/buscar" method="post">
+									<div class="radio">
+										<label><input type="radio" name="optradio" value="rut"> Rut</label>
+									</div>
+									<div class="radio">
+										<label><input type="radio" name="optradio" value="nombre"> Nombre</label>
+									</div>
+									<div class="form-group">
+								    <input type="text" class="form-control" name="txtBuscar" id="txtBuscar" aria-describedby="emailHelp" required>						
 								  </div>
-								  <div class="form-group">
-								    <input type="text" class="form-control"  name="nombre"  id="nombre" aria-describedby="emailHelp" placeholder="Nombre paciente" required>
-								  </div>
+								  
 								  
 								  <button type="submit" class="btn btn-primary">Buscar</button>
 								</form>
@@ -104,16 +108,15 @@
 										</tr>
 									</tfoot>
 									<tbody>
-										<c:forEach var="usuario" items="${usuarios}">
+										<c:forEach var="usuario" items="${pacientes}">
 											<tr>
 												<td>${usuario.id}</td>
 												<td>${usuario.rut}</td>
-												<td>${usuario.conombrerreo}</td>
+												<td>${usuario.nombre}</td>
 												<td>${usuario.correo}</td>
-
 												<td>
-												<a href='<c:out value="/admin/actualizar?id=${usuario.id}" />'>Actualizar</a>
-												<a href="#">Eliminar</a> 
+												<input type="radio" name="idPaciente" onClick="pacienteSelecciona(${usuario.id})"> 
+											   </td>
 											</tr>
 										</c:forEach>
 
@@ -152,7 +155,7 @@
 					
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-table mr-1"></i> Historial Tratamientos
+							<i class="fas fa-table mr-1"></i> Historial de Procedimientos
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
@@ -162,6 +165,7 @@
 									<thead>
 										<tr>
 											<th>Id</th>
+											<th>Rut Paciente</th>
 											<th>Codigo</th>
 											<th>Nombre</th>
 											<th>Fecha</th>
@@ -171,6 +175,7 @@
 									<tfoot>
 										<tr>
 											<th>Id</th>
+											<th>Rut Paciente</th>
 											<th>Codigo</th>
 											<th>Nombre</th>
 											<th>Fecha</th>
@@ -178,17 +183,24 @@
 										</tr>
 									</tfoot>
 									<tbody>
-										<c:forEach var="usuario" items="${usuarios}">
+										<c:forEach var="tratamiento" items="${tratamientos}">
 											<tr>
-												<td>${usuario.id}</td>
-												<td>${usuario.codigo}</td>
-												<td>${usuario.nombre}</td>
-												<td>${usuario.fecha}</td>
+												<td>${tratamiento.id}</td>
+												<td>${tratamiento.getPaciente().getRut()}</td>
+												<td>${tratamiento.getProcedimiento().getCodProcedimiento()}</td>
+												<td>${tratamiento.getProcedimiento().getNombre()}</td>
+												<td>${tratamiento.getFechaIngreso()}</td>
 
 												<td>
-												<a href='<c:out value="/admin/actualizar?id=${usuario.id}" />'>Actualizar</a>
-												<a href="#">Eliminar</a> 
-											</tr>
+                                                    <a href="/tratamientos/ver?id=${tratamiento.id}" data-toggle="modal"
+													data-target="#myModal-Datalle-${tratamiento.id}"><i
+														class="fa fa-eye" aria-hidden="true"></i></a> <a
+													href='<c:out value="/tratamientos/actualizar?id=${tratamiento.id}&rutPaciente=${tratamiento.getPaciente() }" />'><i
+														class="fa fa-edit" aria-hidden="true"></i></a> <a
+													href="/tratamientos/eliminar?id=${tratamiento.id}"
+													data-toggle="modal"
+													data-target="#myModal-${tratamiento.id}"><i
+														class="fa fa-trash" aria-hidden="true"></i></a></tr>
 										</c:forEach>
 
 									</tbody>
@@ -197,55 +209,7 @@
 							</div> <!--  div table  -->
 						</div>     <!--  div card body   -->
 					</div>         <!--  div card  -->
-					
-					
-					
-					<div class="card mb-5">
-						<div class="card-header">
-							<i class="far fa-address-card mr-1"></i> Datos Procedimiento
-						</div>
-						<div class="card-body datosUsuario">
-							<div class="table-responsive">
-								<!-- Formulario Paciente -->
-								<form action="/admin" method="post">
-
-									<div class="form-group">
-										<label for="procedimiento" class="col-sm-3 col-form-label">Procedimiento</label>
-										<div class="col-sm-9">
-											<select name="procedimiento">
-								            <option value="">Seleccione...</option>
-								            </select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="profesional" class="col-sm-3 col-form-label">Profesional</label>
-										<div class="col-sm-9">
-											<select name="profesional">
-								            <option value="">Seleccione...</option>
-								            </select>
-										</div>
-									</div>
-
-								 <div class="form-group">
-  									<label for="comment" class="col-sm-3 col-form-label">Descripcion:</label>
-  									<div class="col-sm-9">
-  									<textarea class="form-control" rows="5" id="comment"></textarea>
-  									</div>
-								 </div>
-								 
-								 <div class="form-group">
-										
-										<div class="col-sm-12">
-											<button type="submit" class="btn btn-primary">Agregar</button>
-										</div>
-									</div>
-								  
-								  
-								</form>
-							</div>
-						</div>
-					</div>
-					
+						
 					
 				</div>
 				
@@ -260,7 +224,7 @@
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
+	<script src="/js/scripts.js"></script>
 
 	<!-- dataTable a espaÃ±ol -->
 	<script>
@@ -280,8 +244,12 @@
 	<script
 		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
 		crossorigin="anonymous"></script>
-	<script src="assets/demo/datatables-demo.js"></script>
-
+	<script src="/assets/demo/datatables-demo.js"></script>
+<script>
+function pacienteSelecciona (id ) {
+	window.location.href="/tratamientos/pacienteSelecciona?id=" + id;
+}
+</script>
 </body>
 
 </html>

@@ -1,7 +1,10 @@
 package cl.csantam.model.entity;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +32,9 @@ public class Procedimiento {
 	private double precio;
 	private int estado;
 	
-	@OneToMany( mappedBy="procedimiento")
-    private List<Tratamiento> tratamiento;
+	@OneToMany( mappedBy = "procedimiento",
+			    cascade = CascadeType.ALL,
+			    orphanRemoval = true)
+    private List<Tratamiento> tratamiento =  new ArrayList<>();
 
 }

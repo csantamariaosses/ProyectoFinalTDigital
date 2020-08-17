@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cl.csantam.model.dao.ProcedimientoDao;
-import cl.csantam.model.dto.PacienteDto;
 import cl.csantam.model.dto.ProcedimientoDto;
 import cl.csantam.model.entity.Procedimiento;
 
@@ -34,8 +33,6 @@ public class ProcedimientoService {
             procedimientoDto.setProcedimiento(procedimientoEnBase);
             logger.warn("El procedimiento que desea ingresar ya existe");
         }else {
-        	//usuario.setContrasenia( EncoderUtils.passwordEncoder().encode(usuario.getContrasenia()));
-            //usuarioDto.setUsuario(dao.save(usuario));
         	procedimiento.setEstado( 1 );
             procedimientoDto.setProcedimiento(  dao.save( procedimiento ));
         }
@@ -64,5 +61,34 @@ public class ProcedimientoService {
     public ProcedimientoDto  buscarProcedimientoPorId(Integer  id ) {
     	ProcedimientoDto procedimientoDto = new ProcedimientoDto(   dao.findById(id).get() , dao.findAll() );
     	return procedimientoDto; 
+    }
+    
+    
+    public ProcedimientoDto  buscarProcedimientoPorCodProcedimiento(String  codProcedimiento ) {
+    	ProcedimientoDto procedimientoDto = new ProcedimientoDto(   dao.findByCodProcedimiento(codProcedimiento).get() , dao.findAll() );
+    	return procedimientoDto; 
+    }
+    
+    
+    public boolean eliminarProcedimiento( Procedimiento procedimiento ) {
+    	boolean status = false;
+        
+    	logger.info("POR ELIMINAR:" + procedimiento.getId());
+   	    Procedimiento procedimientoEnBase = dao.findById( procedimiento.getId()).orElse( null );
+
+        
+        if(procedimientoEnBase != null) {
+        	try {
+        		dao.delete( procedimiento );
+        		status = true;
+            	logger.info("ELIMINADO:" );
+        	} catch( Exception ex ) {
+        		logger.info("Error al intentar eliminar :"+ procedimiento.getId() );
+        		status = false;
+        	}
+        	
+        }
+        	
+        return status;
     }
 }

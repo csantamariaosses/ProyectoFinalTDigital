@@ -24,7 +24,11 @@ import cl.csantam.service.UsuarioService;
 @RequestMapping("admin")
 public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-    
+	boolean error = false;
+	boolean exito = false;
+	String  msg   = "";
+	
+	
     @Autowired
     private UsuarioService servicio;
     
@@ -71,37 +75,18 @@ public class AdminController {
     	
     	modelo.addAttribute("usuario", usuario);
     	modelo.addAttribute("usuarios", usuarios);
-        //modelo.put("usuarioVo", servicio..obtenerPorId(id));
-        //modelo.put("usuarioDto", usuarioDto);
         return "admin/usuariosActualizar";
     }
-    
-    //@PostMapping("/actualizar")
-    
-    
-    
-//    @PutMapping
-//    public String actualizar(  @ModelAttribute Usuario usuario , ModelMap modelo ) {
-//       // modelo.put("usuarioVo", servicio.obtenerPorId(id));
-//    	UsuarioDto usuarioDto = servicio.actualizarUsuario(usuario);
-//    	List<Usuario> usuarios = servicio.llenarUsuarios().getUsuarios();
-//     	
-//     	modelo.addAttribute("usuario", usuario);
-//     	modelo.addAttribute("usuarios", usuarios);
-//        
-//        return "actualizar";
-//    }
     
     
     
     @PostMapping
-    public String usuario( @ModelAttribute Usuario usuario, ModelMap modelo) {
+    public String usuarioRegistrar( @ModelAttribute Usuario usuario, ModelMap modelo) {
     	logger.info("Pass:" + usuario.getContrasenia());
         UsuarioDto usuarioDto = servicio.registrarUsuario(usuario);
         if(usuarioDto.getUsuario() == null)
             return "admin";
 
-        //return "redirect:home";
         List<Usuario> usuarios = servicio.llenarUsuarios().getUsuarios();
     	
     	modelo.addAttribute("usuario", usuario);
@@ -114,12 +99,19 @@ public class AdminController {
      	logger.info("ACTUALIZAR::" + usuario.getNombre() + " id "+ usuario.getId());
      	
         UsuarioDto usuarioDto = servicio.actualizarUsuario( usuario );
-        if(usuarioDto.getUsuario() == null)
-        	return "admin/usuarios";
+		if (usuarioDto.getUsuario() == null) {
+			exito = false;
+			msg = "Ocurrio un problema al intentar actualizar";			
+		} else {
+			exito = true;
+			msg = "Usuario actualizado en forma correcta..!!";
+		}
 
-        //return "redirect:home";
+
         List<Usuario> usuarios = servicio.llenarUsuarios().getUsuarios();
-    	
+        
+    	modelo.addAttribute("exito", exito);
+    	modelo.addAttribute("msg", msg);
     	modelo.addAttribute("usuario", usuario);
     	modelo.addAttribute("usuarios", usuarios);
         return "admin/usuariosActualizar";
@@ -129,4 +121,36 @@ public class AdminController {
     public String usuarioCambioPasswordInicio() {
     	return "usuario/cambioContrasenia";
     }
+    
+    @GetMapping("/eliminar")
+    public String usuarioEliminar(
+        ModelMap modelo,
+        @RequestParam(name = "id") Integer id
+    ) {
+
+    	logger.info("Controller Eliminar:" + id);
+    	Usuario usuario = servicio.buscarUsuarioPorId(id).getUsuario();
+    	
+    	if( servicio.eliminarUsuario( usuario ) )  {
+    		exito = true;
+    		msg = "Usuario eliminado en forma exitosa..!!";
+    	} else {
+    		exito = false;
+    		msg = "Ocurrio un problema al intentar eliminar";
+    	}
+    	
+    	List<Usuario> usuarios = servicio.llenarUsuarios().getUsuarios();
+    	
+    	
+    	modelo.addAttribute("exito", exito);
+    	modelo.addAttribute("msg", msg);
+    	modelo.addAttribute("usuario", usuario);
+    	modelo.addAttribute("usuarios", usuarios);
+        //modelo.put("usuarioVo", servicio..obtenerPorId(id));
+        //modelo.put("usuarioDto", usuarioDto);
+        return "admin/usuariosActualizar";
+    }
+    
+
+   
 }

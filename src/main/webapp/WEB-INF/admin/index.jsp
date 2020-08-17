@@ -13,7 +13,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Admin</title>
+<title>UMR</title>
 <link href="/css/styles.css" rel="stylesheet" />
 <link
 	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
@@ -43,6 +43,7 @@
 				</div>
 				<div class="sb-sidenav-footer">
 					<div class="small">Reconocido como:</div>
+					<c:out value="${nombre}"></c:out>
 					<c:out value="${username}"></c:out>
 				</div>
 			</nav>
@@ -55,7 +56,7 @@
 				<div class="container-fluid">
 				    <h3 class="mt-4"><i class="fa fa-home"></i>  Home</h3>
 					<h3 class="mt-4">Administración del sitio</h3>
-                    <h4>Bienvenida</h4>
+                    <h4>Bienvenida :: <c:out value="${nombre}"></c:out></h4>
 					
 
 				</div>

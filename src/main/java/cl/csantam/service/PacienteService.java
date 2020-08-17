@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import cl.csantam.model.dao.PacienteDao;
 import cl.csantam.model.dto.PacienteDto;
-import cl.csantam.model.dto.UsuarioDto;
 import cl.csantam.model.entity.Paciente;
 
 @Service
@@ -65,10 +64,36 @@ public class PacienteService {
 	    	return pacienteDto; 
 	    }
 	    
-	    public PacienteDto buscarPorRut( String rut ) {
+	    public PacienteDto buscarPacientePorRut( String rut ) {
 	    	PacienteDto pacienteDto = new PacienteDto(   dao.findByRut( rut ).get() , dao.findAll() );
 	    	return pacienteDto; 
 	    }
 	    
+	    public PacienteDto buscarPacientesContieneNombre( String nombre ) {
+	    	PacienteDto pacienteDto = new PacienteDto( new Paciente(), dao.findByNombreContaining( nombre));
+	    	return pacienteDto;
+	    }
 	    
+	    
+	    public boolean eliminarPaciente( Paciente paciente ) {
+	    	boolean status = false;
+	        
+	    	logger.info("POR ELIMINAR:" + paciente.getId());
+	   	    Paciente pacienteEnBase = dao.findById( paciente.getId()).orElse( null );
+	        //Usuario usuarioEnBase = dao.findByCorreo(usuario.getCorreo()).orElse(null);
+	        
+	        if( pacienteEnBase != null) {
+	        	try {
+	        		dao.delete( paciente );
+	        		status = true;
+	            	logger.info("ELIMINADO:" );
+	        	} catch( Exception ex ) {
+	        		logger.info("Error al intentar eliminar :"+ paciente.getId() );
+	        		status = false;
+	        	}
+	        	
+	        }
+	        	
+	        return status;
+	    }
 }

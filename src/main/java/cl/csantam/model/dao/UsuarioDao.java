@@ -8,4 +8,5 @@ import cl.csantam.model.entity.Usuario;
 
 public interface UsuarioDao extends JpaRepository<Usuario, Integer>{
     Optional<Usuario> findByCorreo(String correo);
+    Optional<Usuario> findByRut(String rut );
 }

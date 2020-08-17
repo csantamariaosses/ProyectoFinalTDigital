@@ -71,7 +71,7 @@ public class UsuarioController {
 
     
     @GetMapping("/cambioContrasenia")
-    public String usuarioCambioPasswordInicio(HttpSession session ,  ModelMap modelo ) {
+    public String usuarioCambioPassword(HttpSession session ,  ModelMap modelo ) {
     	Integer id = (Integer) session.getAttribute("id");
     	modelo.put("id", id);
     	return "usuario/cambioContrasenia";
@@ -115,6 +115,93 @@ public class UsuarioController {
      	 return "usuario/cambioContrasenia";
     }
 
+    
+    @GetMapping("/cambioContraseniaInicio")
+    public String usuarioCambioPasswordInicio(
+    		HttpSession session,
+            ModelMap modelo, 
+            @RequestParam("id") Integer id,
+            @RequestParam("password") String pass,
+            @RequestParam("password_") String pass_
+    		
+    		) {
+    	
+    	 if( !pass.equals( pass_)) {
+      		logger.info("PASSS: password no son iguales");
+      		modelo.put("error", true);
+      		modelo.put("msg", "Las contraseñas no son iguales, favor reintentar.");
+      		return "usuario/cambioContraseniaInicio";
+      	 } 
+    	 
+    	 
+    	 String new_pass = EncoderUtils.passwordEncoder().encode( pass );
+     	 Usuario  usuario = servicio.buscarUsuarioPorId(id).getUsuario();
+     	 
+     	 usuario.setContrasenia( new_pass);
+     	 UsuarioDto  usuarioDto = servicio.actualizarUsuario(usuario);
+     	 if( usuarioDto != null ) {
+     		modelo.put("info", true);
+     		modelo.put("msg", "Su contraseña fue actualizada en forma correcta..!!");
+     	 } else {
+     		modelo.put("error", true);
+     		modelo.put("msg", "Ocurrio un problema al intentar cambiar su contraseña.");
+     	 }
+    	 
+    	
+    	return "usuario/cambioContraseniaInicio";
+    }
+    
+    
+    @PostMapping("/cambioContraseniaInicio")
+    public String usuarioCambioContraseniaInicio( 
+    	 HttpSession session,
+         ModelMap modelo, 
+         @RequestParam("id") Integer id,
+         @RequestParam("password") String pass,
+         @RequestParam("password_") String pass_) {
+    	
+         String correo = session.getAttribute( "correo").toString();
+         
+         logger.info("Id:" + id);
+         logger.info("Nombre:" + session.getAttribute("nombre"));
+    	 logger.info("CAMBIO-CONTRASENIA::" + pass + " pass_ "+  pass_);
+     	 logger.info("Sesion:::" + correo );
+     	
+     	 if( !pass.equals( pass_)) {
+     		logger.info("PASSS: password no son iguales");
+     		modelo.put("error", true);
+     		modelo.put("msg", "Las contraseñas no son iguales, favor reintentar.");
+     		return "usuario/cambioContraseniaInicio";
+     	 } 
+     	 String new_pass = EncoderUtils.passwordEncoder().encode( pass );
+     	 Usuario  usuario = servicio.buscarUsuarioPorId(id).getUsuario();
+     	 
+     	 usuario.setContrasenia( new_pass);
+     	 UsuarioDto  usuarioDto = servicio.actualizarUsuario(usuario);
+     	 if( usuarioDto != null ) {
+     		modelo.put("info", true);
+     		modelo.put("msg", "Su contraseña fue actualizada en forma correcta..!!");
+     	 } else {
+     		modelo.put("error", true);
+     		modelo.put("msg", "Ocurrio un problema al intentar cambiar su contraseña.");
+     	 }
+     	 
+     	 return "usuario/index";
+    }
+
+    
+    
+    @GetMapping("/cambioContraseniaInicioLogin")
+    public String cambioContraseniaInicioLogin(
+    		HttpSession session,
+            ModelMap modelo, 
+            @RequestParam("id") Integer id) {
+    	logger.info("LOGIN:::cambio contrasenia inicio");
+    	modelo.put("id", id);
+    	return "usuario/cambioContraseniaInicio";
+    	
+    }
+    
     
 
 }

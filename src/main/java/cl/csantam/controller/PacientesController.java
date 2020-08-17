@@ -23,6 +23,9 @@ import cl.csantam.service.PacienteService;
 @RequestMapping("pacientes")
 public class PacientesController {
 	private static final Logger logger = LoggerFactory.getLogger(PacientesController.class);
+	boolean info  = false;
+	boolean error = false;
+	String  msg   = "";
 	
 	@Autowired
     private PacienteService servicio;
@@ -85,15 +88,55 @@ public class PacientesController {
 	     	logger.info("ACTUALIZAR::" + paciente.getNombre() + " id "+ paciente.getId());
 	     	
 	        PacienteDto pacienteDto = servicio.actualizarPaciente( paciente );
-	        if( pacienteDto.getPaciente() == null)
-	        	return "admin/usuarios";
+	        if( pacienteDto.getPaciente() == null) {
+	        	error = true;
+	 	        msg = "Ocurrio un problema al intentar actualizar datos...!!";
+	        } else {
+	        	info = true;
+	        	msg = "Datos actualizados en forma correcta...!!";
+	        }
 
-	        //return "redirect:home";
+
 	        List<Paciente> pacientes = servicio.llenarPacientes().getPacientes();
 	    	
+	        modelo.put("info", info);
+	        modelo.put("error", error);
+	        modelo.put("msg", msg);
 	    	modelo.addAttribute("paciente", paciente );
 	    	modelo.addAttribute("pacientes", pacientes );
 	        return "pacientes/pacientesActualizar";
 	    }
 
+	    
+	    
+	    
+	    @GetMapping("/eliminar")
+	    public String pacienteEliminar(
+	        ModelMap modelo,
+	        @RequestParam(name = "id") Integer id
+	    ) {
+
+	    	logger.info("Controller Eliminar:" + id);
+	    	Paciente paciente = servicio.buscarPacientePorId(id).getPaciente();
+	    	
+	    	if( servicio.eliminarPaciente( paciente ) )  {
+	    		info = true;
+	    		msg = "paciente eliminado en forma exitosa..!!";
+	    	} else {
+	    		error = true;
+	    		msg = "Ocurrio un problema al intentar eliminar";
+	    	}
+	    	
+	    	List<Paciente> pacientes = servicio.llenarPacientes().getPacientes();
+	    	
+	    	
+	    	modelo.addAttribute("info", info);
+	    	modelo.addAttribute("error", error);
+	    	modelo.addAttribute("msg", msg);
+	    	modelo.addAttribute("paciente", paciente );
+	    	modelo.addAttribute("pacientes", pacientes);
+	        //modelo.put("usuarioVo", servicio..obtenerPorId(id));
+	        //modelo.put("usuarioDto", usuarioDto);
+	        return "pacientes/pacientesActualizar";
+	    }
 }

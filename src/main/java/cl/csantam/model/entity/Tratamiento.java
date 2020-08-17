@@ -1,6 +1,7 @@
 package cl.csantam.model.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,26 +16,33 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Data
+@ToString
 @Entity
 public class Tratamiento {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-	private String descripcion;
-	private String fechaIngreso;
+	private String  codTratamiento;
+	/*
+	private String  rutUsuario;
+	private String  rutPaciente;
+	private String  codProcedimiento;
+	private String  nombre;
+	*/
+	private String  descripcion;
+	private String  fechaIngreso;
 	
-	@ManyToOne
-    @JoinColumn(name="rutUsuario", nullable=false, updatable = false)
+	@ManyToOne( fetch = FetchType.LAZY)
+    @JoinColumn(name="rutUsuario")
     private Usuario usuario;
 	
-	@ManyToOne
-    @JoinColumn(name="rutPaciente", nullable=false, updatable = false)
+	@ManyToOne( fetch = FetchType.LAZY)
+    @JoinColumn(name="rutPaciente")
     private Paciente paciente;
 	
-	@ManyToOne
-    @JoinColumn(name="codProcedimiento", nullable=false, updatable = false)
+	@ManyToOne( fetch = FetchType.LAZY)
+    @JoinColumn(name="codProcedimiento")
     private Procedimiento procedimiento;
 	
 

@@ -53,11 +53,30 @@ public class ManejadorDeAutentificacionPersonalizado implements AuthenticationSu
         session.setAttribute("rut", usuario.getRut());
         session.setAttribute("rol", usuario.getRol());
         
+        String encodedPassword = usuario.getContrasenia();
+        boolean comparaPass= EncoderUtils.passwordEncoder().matches("1234", encodedPassword);
+        
+        logger.info("FFFFFFFFFFFFFFFFFFFFFFFFF");
+        
+//        if(roles.contains("ROLE_ADMIN")) {
+//            response.sendRedirect("/admin");
+//        }else {
+//        	response.sendRedirect("/usuario");  
+//        }
+        
         if(roles.contains("ROLE_ADMIN")) {
             response.sendRedirect("/admin");
         }else {
-        	
-       		response.sendRedirect("/usuario");           
+        	if( comparaPass ) {
+            	logger.info( "Pass Iguales ");
+            	String id = session.getAttribute("id").toString();
+            	logger.info("id:" + id);
+            	response.sendRedirect( "usuario/cambioContraseniaInicioLogin?id="+id);
+            } else {
+            	logger.info( "Pass Distinta");
+            	response.sendRedirect("/usuario");   
+            }
+       		        
         }
     }
 

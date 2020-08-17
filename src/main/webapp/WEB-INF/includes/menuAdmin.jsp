@@ -1,4 +1,4 @@
-<div class="sb-sidenav-menu-heading">Título prueba</div>
+<div class="sb-sidenav-menu-heading">Menu</div>
 <a class="nav-link" href="/admin">
 	<div class="sb-nav-link-icon">
 		<i class="fa fa-home"></i>
